@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block title %}Keypair create{% endblock %}
+{% block breadcrumb %}Keypair create{% endblock %}
+{% block content %}
+<h2>Keypair create</h2>
+
+作成するキーペアを設定してください。
+
+<form action="{{ url_for('keypair.create') }}" method="POST" novalidate="novalidate">
+{{ form.csrf_token }}
+<p>
+    {{ form.name.label }}
+    {{ form.name(placeholder="name") }} 
+    {% for error in form.name.errors %}
+    <span style="color: red";>{{ error }}</span>
+    {% endfor %}
+</p>
+
+<p>
+    {{ form.resource_group_uuid.label }}
+    {{ form.resource_group_uuid() }} 
+</p>
+
+<p>
+    {{ form.pubkey.label }}
+    {{ form.pubkey(placeholder="ssh-keygen pubkey") }} 
+    {% for error in form.pubkey.errors %}
+    <span style="color: red";>{{ error }}</span>
+    {% endfor %}
+</p>
+
+<p>
+    {{ form.submit() }}
+</p>
+</form>
+
+{% endblock %}

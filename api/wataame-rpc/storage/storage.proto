@@ -1,0 +1,48 @@
+syntax = "proto3";
+
+package storage;
+
+service Storage {
+    rpc createPool(CreatePoolRequest) returns (CreatePoolReply) {}
+    rpc deletePool(DeletePoolRequest) returns (DeletePoolReply) {}
+    rpc createVolume(CreateVolumeRequest) returns (CreateVolumeReply) {}
+    rpc deleteVolume(DeleteVolumeRequest) returns (DeleteVolumeReply) {}
+}
+
+message CreatePoolRequest {
+    string uuid = 1;
+    string name= 2;
+    uint32 cap = 3;
+    uint32 alloc = 4;
+}
+
+message CreatePoolReply {
+    string message = 1;
+}
+
+message DeletePoolRequest {
+    string uuid = 1;
+}
+
+message DeletePoolReply {
+    string message = 1;
+}
+
+message CreateVolumeRequest {
+    string name= 1;
+    uint32 cap = 2;
+    uint32 alloc = 3;
+    string pooluuid = 4;
+}
+
+message CreateVolumeReply {
+    string message = 1;
+}
+
+message DeleteVolumeRequest {
+    string path = 1;
+}
+
+message DeleteVolumeReply {
+    string message = 1;
+}

@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block title %}Resource{% endblock %}
+{% block breadcrumb %}Resource{% endblock %}
+{% block content %}
+<h2>Resource</h2>
+
+操作するリソースグループを一覧から選択し、アクションを実行してください。
+<form action="" method="POST">
+{{ form.csrf_token }}
+<div class="resource-dropdown">
+    <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-expanded="false">
+        アクション
+    </button>
+    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        <li><button class="dropdown-item" type="submit" name="action" value="create">新規作成</button></li>
+        <div class="dropdown-divider"></div>
+        <li><button class="dropdown-item" type="submit" name="action" value="delete">削除</button></li>
+    </ul>
+</div>
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">uuid</th>
+            <th scope="col">name</th>
+            <th scope="col">created_at</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for group in resource_groups %}
+        <tr>
+            <td><input type="radio" name="uuid" value="{{ group.uuid }}"></td>
+            <td>{{ group.uuid }}</td>
+            <td>{{ group.name }}</td>
+            <td>{{ group.created_at }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+</form>
+
+{% endblock %}

@@ -1,0 +1,40 @@
+syntax = "proto3";
+
+package network;
+
+service Network {
+    rpc createVN(CreateVNRequest) returns (CreateVNReply) {}
+    rpc deleteVN(DeleteVNRequest) returns (DeleteVNReply) {}
+    rpc createBridge(CreateBridgeRequest) returns (CreateBridgeReply) {}
+}
+
+message CreateVNRequest {
+    string uuid = 1;
+    string name = 2;
+    string mac = 3;
+    string cidr = 4;
+}
+
+message CreateVNReply {
+    string message = 1;
+    string docknetid = 2;
+}
+
+message DeleteVNRequest {
+    string uuid = 1;
+    string docknetid = 2;
+}
+
+message DeleteVNReply {
+    string message = 1;
+}
+
+message CreateBridgeRequest {
+    string uuid = 1;
+    string name = 2;
+}
+
+message CreateBridgeReply {
+    string message = 1;
+    string docknetid = 2;
+}

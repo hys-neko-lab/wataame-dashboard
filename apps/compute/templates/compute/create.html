@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% block title %}Compute create{% endblock %}
+{% block breadcrumb %}Compute create{% endblock %}
+{% block content %}
+<h2>Compute create</h2>
+
+作成するVMを設定してください。<br>
+なお、Storage PoolとVolumeが自動で作成されます。
+
+<form action="{{ url_for('compute.create') }}" method="POST" novalidate="novalidate">
+{{ form.csrf_token }}
+<p>
+    {{ form.name.label }}
+    {{ form.name(placeholder="VM name") }} 
+    {% for error in form.name.errors %}
+    <span style="color: red";>{{ error }}</span>
+    {% endfor %}
+</p>
+
+<p>
+    {{ form.resource_group_uuid.label }}
+    {{ form.resource_group_uuid() }} 
+</p>
+
+<p>
+    {{ form.network_uuid.label }}
+    {{ form.network_uuid() }} 
+</p>
+
+<p>
+    {{ form.image_id.label }}
+    {{ form.image_id() }} 
+</p>
+
+<p>
+    {{ form.type_id.label }}
+    {{ form.type_id() }} 
+</p>
+
+<p>
+    {{ form.hostname.label }}
+    {{ form.hostname(placeholder="hostname") }} 
+    {% for error in form.hostname.errors %}
+    <span style="color: red";>{{ error }}</span>
+    {% endfor %}
+</p>
+
+<p>
+    {{ form.password.label }}
+    {{ form.password(placeholder="password") }} 
+    {% for error in form.password.errors %}
+    <span style="color: red";>{{ error }}</span>
+    {% endfor %}
+</p>
+
+<p>
+    {{ form.username.label }}
+    {{ form.username(placeholder="username") }} 
+    {% for error in form.username.errors %}
+    <span style="color: red";>{{ error }}</span>
+    {% endfor %}
+</p>
+
+<p>
+    {{ form.keypair.label }}
+    {{ form.keypair() }} 
+</p>
+
+<p>
+    {{ form.submit() }}
+</p>
+</form>
+
+{% endblock %}

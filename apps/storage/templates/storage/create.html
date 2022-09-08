@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block title %}Storage Pool create{% endblock %}
+{% block breadcrumb %}Storage Pool create{% endblock %}
+{% block content %}
+<h2>Storage Pool create</h2>
+
+作成するストレージプールを設定してください。
+
+<form action="{{ url_for('storage.createPool') }}" method="POST" novalidate="novalidate">
+{{ form.csrf_token }}
+<p>
+    {{ form.name.label }}
+    {{ form.name(placeholder="pool name") }} 
+    {% for error in form.name.errors %}
+    <span style="color: red";>{{ error }}</span>
+    {% endfor %}
+</p>
+
+<p>
+    {{ form.resource_group_uuid.label }}
+    {{ form.resource_group_uuid() }} 
+</p>
+
+<p>
+    {{ form.capacity.label }}
+    {{ form.capacity() }} GB
+</p>
+
+<p>
+    {{ form.submit() }}
+</p>
+</form>
+
+{% endblock %}

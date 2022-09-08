@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block title %}Container create{% endblock %}
+{% block breadcrumb %}Container create{% endblock %}
+{% block content %}
+<h2>Container create</h2>
+
+作成するコンテナを設定してください。
+
+<form action="{{ url_for('container.create') }}" method="POST" novalidate="novalidate">
+{{ form.csrf_token }}
+<p>
+    {{ form.name.label }}
+    {{ form.name(placeholder="Container name") }} 
+    {% for error in form.name.errors %}
+    <span style="color: red";>{{ error }}</span>
+    {% endfor %}
+</p>
+
+<p>
+    {{ form.resource_group_uuid.label }}
+    {{ form.resource_group_uuid() }} 
+</p>
+
+<p>
+    {{ form.network_uuid.label }}
+    {{ form.network_uuid() }} 
+</p>
+
+<p>
+    {{ form.image.label }}
+    {{ form.image(placeholder="Image name") }}
+    {% for error in form.image.errors %}
+    <span style="color: red";>{{ error }}</span>
+    {% endfor %}
+</p>
+
+<p>
+    {{ form.submit() }}
+</p>
+</form>
+
+{% endblock %}

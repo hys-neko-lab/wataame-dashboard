@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}Network create{% endblock %}
+{% block breadcrumb %}Network create{% endblock %}
+{% block content %}
+<h2>Network create</h2>
+
+作成するブリッジを設定してください。
+
+<form action="{{ url_for('network.createBridge') }}" method="POST" novalidate="novalidate">
+{{ form.csrf_token }}
+<p>
+    {{ form.name.label }}
+    {{ form.name(placeholder="bridge name") }} 
+    {% for error in form.name.errors %}
+    <span style="color: red";>{{ error }}</span>
+    {% endfor %}
+</p>
+
+<p>
+    {{ form.resource_group_uuid.label }}
+    {{ form.resource_group_uuid() }} 
+</p>
+
+<p>
+    {{ form.submit() }}
+</p>
+</form>
+
+{% endblock %}

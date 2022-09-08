@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block title %}Serverless{% endblock %}
+{% block breadcrumb %}Serverless{% endblock %}
+{% block content %}
+<h2>Serverless</h2>
+
+操作するFunctionを一覧から選択し、アクションを実行してください。
+
+<form action="" method="POST">
+{{ form.csrf_token }}
+<div class="serverless-dropdown">
+    <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-expanded="false">
+        アクション
+    </button>
+    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        <li><button class="dropdown-item" type="submit" name="action" value="create">新規作成</button></li>
+        <div class="dropdown-divider"></div>
+        <li><button class="dropdown-item" type="submit" name="action" value="delete">削除</button></li>
+    </ul>
+</div>
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">uuid</th>
+            <th scope="col">name</th>
+            <th scope="col">resource_group_uuid</th>
+            <th scope="col">IP address</th>
+            <th scope="col">node_ports</th>
+            <th scope="col">created_at</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for (sl, info) in zip(sls, infos) %}
+        <tr>
+            <td><input type="radio" name="uuid" value="{{ sl.uuid }}"></td>
+            <td>{{ sl.uuid }}</td>
+            <td>{{ sl.name }}</td>
+            <td>{{ sl.resource_group_uuid }}</td>
+            <td>{{ sl.ip }}</td>
+            <td>{{ info.node_ports }}</td>
+            <td>{{ sl.created_at }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+</form>
+    
+
+{% endblock %}

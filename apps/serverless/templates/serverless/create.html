@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% block title %}Serverless create{% endblock %}
+{% block breadcrumb %}Serverless create{% endblock %}
+{% block content %}
+<h2>Serverless create</h2>
+
+作成するFunctionを設定してください。
+
+<form name="serverlessForm" action="{{ url_for('serverless.create') }}" method="POST" novalidate="novalidate">
+{{ form.csrf_token }}
+<p>
+    {{ form.name.label }}
+    {{ form.name(placeholder="Serverless name") }} 
+    {% for error in form.name.errors %}
+    <span style="color: red";>{{ error }}</span>
+    {% endfor %}
+</p>
+
+<p>
+    {{ form.resource_group_uuid.label }}
+    {{ form.resource_group_uuid() }} 
+</p>
+
+<p>
+    {{ form.submit() }}
+</p>
+</form>
+
+<div id="container" style="width: 800px; height: 600px; border: 1px solid grey;"></div>
+<button onclick="saveSource();">関数を保存</button>
+{% for error in form.source.errors %}
+<span style="color: red";>{{ error }}</span>
+{% endfor %}
+<script src="static/monaco-editor-0.34.0/package/min/vs/loader.js"></script>
+<script>
+var editor;
+require.config({ paths: { vs: "static/monaco-editor-0.34.0/package/min/vs" } });
+
+require(["vs/editor/editor.main"], function () {
+  editor = monaco.editor.create(
+    document.getElementById("container"),
+    {
+      value: [
+        "import json",
+        "",
+        "def handler(event):",
+        '\tprint("Hello world!")',
+        '\treturn json.dumps({"Key": "Value"})'
+      ].join("\n"),
+      language: "python",
+    }
+  );
+});
+
+function saveSource() {
+    var f = document.createElement('input');
+    f.setAttribute('type', 'hidden');
+    f.setAttribute('name', 'source');
+    f.setAttribute('value', editor.getValue());
+    document.serverlessForm.appendChild(f);
+}
+</script>
+
+{% endblock %}

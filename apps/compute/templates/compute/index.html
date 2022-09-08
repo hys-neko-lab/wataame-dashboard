@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% block title %}Compute{% endblock %}
+{% block breadcrumb %}Compute{% endblock %}
+{% block content %}
+<h2>Compute</h2>
+
+操作するVMを一覧から選択し、アクションを実行してください。
+<form action="" method="POST">
+{{ form.csrf_token }}
+<div class="compute-dropdown">
+    <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-expanded="false">
+        アクション
+    </button>
+    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        <li><button class="dropdown-item" type="submit" name="action" value="create">新規作成</button></li>
+        <div class="dropdown-divider"></div>
+        <li><button class="dropdown-item" type="submit" name="action" value="start">起動</button></li>
+        <li><button class="dropdown-item" type="submit" name="action" value="shutdown">シャットダウン</button></li>
+        <li><button class="dropdown-item" type="submit" name="action" value="destroy">強制終了</button></li>
+        <div class="dropdown-divider"></div>
+        <li><button class="dropdown-item" type="submit" name="action" value="delete">削除</button></li>
+    </ul>
+</div>
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">uuid</th>
+            <th scope="col">name</th>
+            <th scope="col">status</th>
+            <th scope="col">IP address</th>
+            <th scope="col">resource_group_uuid</th>
+            <th scope="col">network_uuid</th>
+            <th scope="col">keypair_uuid</th>
+            <th scope="col">volume_uuid</th>
+            <th scope="col">created_at</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for (vm, info) in zip(vms, infos) %}
+        <tr>
+            <td><input type="radio" name="uuid" value="{{ vm.uuid }}"></td>
+            <td>{{ vm.uuid }}</td>
+            <td>{{ vm.name }}</td>
+            <td>{{ info.status }}</td>
+            <td>{{ info.ip }}</td>
+            <td>{{ vm.resource_group_uuid }}</td>
+            <td>{{ vm.network_uuid }}</td>
+            <td>{{ vm.keypair_uuid }}</td>
+            <td>{{ vm.volume_uuid }}</td>
+            <td>{{ vm.created_at }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+</form>
+
+{% endblock %}

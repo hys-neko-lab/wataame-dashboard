@@ -1,0 +1,40 @@
+{% extends "auth/base.html" %}
+{% block title %}Sign up{% endblock %}
+{% block breadcrumb %}Sign up{% endblock %}
+{% block content %}
+<h2>Sign up</h2>
+
+登録情報を入力してください。
+
+<form action="{{ url_for('auth.signup') }}" method="POST" novalidate="novalidate">
+{{ form.csrf_token }}
+<p>
+    {{ form.username.label }}
+    {{ form.username(placeholder="Your name") }} 
+    {% for error in form.username.errors %}
+    <span style="color: red";>{{ error }}</span>
+    {% endfor %}
+</p>
+
+<p>
+    {{ form.email.label }}
+    {{ form.email(placeholder="email@example.com") }} 
+    {% for error in form.email.errors %}
+    <span style="color: red";>{{ error }}</span>
+    {% endfor %}
+</p>
+
+<p>
+    {{ form.password.label }}
+    {{ form.password(placeholder="Your password") }} 
+    {% for error in form.password.errors %}
+    <span style="color: red";>{{ error }}</span>
+    {% endfor %}
+</p>
+
+<p>
+    {{ form.submit() }}
+</p>
+</form>
+アカウントをすでにお持ちの場合：<a href="{{ url_for('auth.signin') }}">サインイン</a>
+{% endblock %}

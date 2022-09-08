@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}Resource create{% endblock %}
+{% block breadcrumb %}Resource create{% endblock %}
+{% block content %}
+<h2>Resource create</h2>
+
+登録情報を入力してください。
+
+<form action="{{ url_for('resource.create') }}" method="POST" novalidate="novalidate">
+{{ form.csrf_token }}
+<p>
+    {{ form.name.label }}
+    {{ form.name(placeholder="Resource group name") }} 
+    {% for error in form.name.errors %}
+    <span style="color: red";>{{ error }}</span>
+    {% endfor %}
+</p>
+
+<p>
+    {{ form.submit() }}
+</p>
+</form>
+
+{% endblock %}
