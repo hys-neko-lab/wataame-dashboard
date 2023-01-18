@@ -26,19 +26,17 @@
             <th scope="col">name</th>
             <th scope="col">resource_group_uuid</th>
             <th scope="col">IP address</th>
-            <th scope="col">node_ports</th>
             <th scope="col">created_at</th>
         </tr>
     </thead>
     <tbody>
-        {% for (sl, info) in zip(sls, infos) %}
+        {% for sl in sls %}
         <tr>
             <td><input type="radio" name="uuid" value="{{ sl.uuid }}"></td>
             <td>{{ sl.uuid }}</td>
             <td>{{ sl.name }}</td>
             <td>{{ sl.resource_group_uuid }}</td>
             <td>{{ sl.ip }}</td>
-            <td>{{ info.node_ports }}</td>
             <td>{{ sl.created_at }}</td>
         </tr>
         {% endfor %}

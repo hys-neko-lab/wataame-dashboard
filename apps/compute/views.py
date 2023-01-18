@@ -111,7 +111,6 @@ def create():
         db.session.commit()
 
         # 仮想マシンインストール用のボリューム作成
-        # TODO:typeによってcapacityを変更
         volume = Volumes(
             uuid=uuid.uuid4(),
             storage_pool_uuid=pool.uuid,

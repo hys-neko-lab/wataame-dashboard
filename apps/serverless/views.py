@@ -26,14 +26,6 @@ serverless = Blueprint(
 def index():
     form = ServerlessForm()
     sls = Serverlesses.query.join(ResourceGroups).filter(ResourceGroups.user_id==current_user.id)
-    # 接続先ポート番号(node_ports)はwataame-serverlessから動的に取得
-    infos=[]
-    with grpc.insecure_channel('localhost:8084') as ch:
-        stub = serverless_pb2_grpc.ServerlessStub(ch)
-        for s in sls:
-            infos.append({
-                'node_ports': stub.getPorts(serverless_pb2.PortsRequest(name=s.name)).message,
-            })
     if request.method == "POST":
         uuid = request.form.get("uuid")
         action = request.form.get("action")
@@ -47,7 +39,7 @@ def index():
             print("Reply: %s" % reply.message)
             db.session.delete(sl)
             db.session.commit()
-    return render_template("serverless/index.html", form=form, sls=sls, infos=infos, zip=zip)
+    return render_template("serverless/index.html", form=form, sls=sls)
 
 @serverless.route("/create", methods=["GET", "POST"])
 @login_required

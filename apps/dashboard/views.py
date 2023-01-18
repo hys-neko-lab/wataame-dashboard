@@ -9,7 +9,6 @@ from apps.storage.models import StoragePools, Volumes
 from apps.container.models import Containers
 from apps.serverless.models import Serverlesses
 
-
 dashboard = Blueprint(
     "dashboard",
     __name__,

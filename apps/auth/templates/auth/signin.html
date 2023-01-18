@@ -2,21 +2,41 @@
 {% block title %}Sign in{% endblock %}
 {% block content %}
 
-<h2>Sign in</h2>
-<form action="{{ url_for('auth.signin') }}" method="post" novalidate="novalidate">
-    {% for message in get_flashed_messages() %}
-    <p style="color:red;">{{ message }}</p>
-    {% endfor %}
-    {{ form.csrf_token }}
-    <p>{{ form.email.label }} {{ form.email(placeholder="email@exam@le.com") }}</p>
+<form action="{{ url_for('auth.signin') }}" method="post" novalidate="novalidate" class="text-center card">
+{{ form.csrf_token }}
+<div class="card-body">
+<h1 class="card-title">
+    <img src="/static/wataame.png" alt="WataAme"/>
+</h1>
+
+<h2 class="card-title">
+    Sign in
+</h2>
+{% for message in get_flashed_messages() %}
+<p style="color:red;">{{ message }}</p>
+{% endfor %}
+
+<p class="card-text">
+    {{ form.email.label }}
+    {{ form.email(placeholder="email@example.com") }}
     {% for error in form.email.errors %}
     <span style="color:red;">{{ error }}</span>
     {% endfor %}
-    <p>{{ form.password.label }} {{ form.password(placeholder="Your password") }}</p>
+</p>
+
+<p class="card-text">
+    {{ form.password.label }}
+    {{ form.password(placeholder="Your password") }}
     {% for error in form.password.errors %}
     <span style="color:red;">{{ error }}</span>
     {% endfor %}
-    <p>{{ form.submit() }}</p>
+</p>
+
+<p class="card-text">{{ form.submit() }}</p>
+<p class="card-text">
+    アカウントをお持ちでない場合：<a href="{{ url_for('auth.signup') }}">新規登録</a>
+</p>
+
+</div>
 </form>
-アカウントをお持ちでない場合：<a href="{{ url_for('auth.signup') }}">新規登録</a>
 {% endblock %}

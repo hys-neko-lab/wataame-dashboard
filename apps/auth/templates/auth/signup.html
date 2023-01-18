@@ -2,13 +2,23 @@
 {% block title %}Sign up{% endblock %}
 {% block breadcrumb %}Sign up{% endblock %}
 {% block content %}
-<h2>Sign up</h2>
 
-登録情報を入力してください。
-
-<form action="{{ url_for('auth.signup') }}" method="POST" novalidate="novalidate">
+<form action="{{ url_for('auth.signup') }}" method="POST" novalidate="novalidate" class="text-center card">
 {{ form.csrf_token }}
-<p>
+<div class="card-body">
+<h1 class="card-title">
+    <img src="/static/wataame.png" alt="WataAme"/>
+</h1>
+
+<h2 class="card-title">
+    Sign up
+</h2>
+
+<p class="card-text">
+    登録情報を入力してください。
+</p>
+
+<p class="card-text">
     {{ form.username.label }}
     {{ form.username(placeholder="Your name") }} 
     {% for error in form.username.errors %}
@@ -16,7 +26,7 @@
     {% endfor %}
 </p>
 
-<p>
+<p class="card-text">
     {{ form.email.label }}
     {{ form.email(placeholder="email@example.com") }} 
     {% for error in form.email.errors %}
@@ -24,7 +34,7 @@
     {% endfor %}
 </p>
 
-<p>
+<p class="card-text">
     {{ form.password.label }}
     {{ form.password(placeholder="Your password") }} 
     {% for error in form.password.errors %}
@@ -32,9 +42,12 @@
     {% endfor %}
 </p>
 
-<p>
+<p class="card-text">
     {{ form.submit() }}
 </p>
+<p class="card-text">
+    アカウントをすでにお持ちの場合：<a href="{{ url_for('auth.signin') }}">サインイン</a>
+</p>
+</div>
 </form>
-アカウントをすでにお持ちの場合：<a href="{{ url_for('auth.signin') }}">サインイン</a>
 {% endblock %}
