@@ -2,7 +2,7 @@ from flask import Blueprint, redirect, render_template, url_for, flash
 from flask_login import login_user, logout_user
 
 from apps.auth.forms import UserForm
-from apps.auth.models import User
+from apps.auth.models import Users
 from apps.auth.forms import SigninForm
 from apps.main import db
 
@@ -17,9 +17,9 @@ auth = Blueprint(
 def signup():
     form = UserForm()
     # サインアップ情報に問題なければdashboardに飛ぶ
-    # ただしログインしたわけではないのでサインイン画面にリダイレクトされる
+    # ただしログインしたわけではないのでサインイン画面にリダイレクトする
     if form.validate_on_submit():
-        user = User(
+        user = Users(
             username=form.username.data,
             email=form.email.data,
             password=form.password.data,
@@ -34,7 +34,7 @@ def signin():
     form = SigninForm()
     # サインイン情報に問題なければdashboardに飛ぶ
     if form.validate_on_submit():
-        user = User.query.filter_by(email=form.email.data).first()
+        user = Users.query.filter_by(email=form.email.data).first()
         if user != None:
             if user.check_password(form.password.data):
                 login_user(user)
